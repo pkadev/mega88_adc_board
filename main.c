@@ -9,6 +9,7 @@
 #include <avr/wdt.h>
 #include <util/delay.h>
 #include "timer.h"
+#include "spi.c"
 
 uint8_t cmp_pattern(uint8_t *p, uint8_t pattern, size_t size)
 {
@@ -23,24 +24,24 @@ uint8_t cmp_pattern(uint8_t *p, uint8_t pattern, size_t size)
     return 0;
 }
 
-//static struct system_settings sys_settings;
-
 int main(void)
 {
+    max1168_init();
     //XMCRA |= (1<<SRE);
     //XMCRA |= (1<<SRW01) | (1<<SRW11);
 
-    //struct rtc_time time;
-    wdt_enable(WDTO_8S);
+    //wdt_enable(WDTO_8S);
     STATUS_REGISTER |= (1<<STATUS_REGISTER_IT);
     uart_init();
     cmd_init();
+
     while(1)
     {
     //    _delay_ms(250);
-        pending_cmd();
-        wdt_reset();
-    _delay_ms(400);
+        // pending_cmd();
+        //wdt_reset();
+        uint8_t val = max1168_read_reg(SPI_DUMMY_BYTE);
+        printk("reg: 0x%x\n", val);
     }
 //fatal:
     printk("Fatal error!\n");

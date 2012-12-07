@@ -27,7 +27,7 @@
 # make program = Download the hex file to the device, using avrdude.
 #                Please customize the avrdude settings below first!
 #
-# make debug = Start either simulavr or avarice as specified for debugging, 
+# make debug = Start either simulavr or avarice as specified for debugging,
 #              with avr-gdb or avr-insight as the front end for debugging.
 #
 # make filename.s = Just compile filename.c into the assembler code only.
@@ -44,11 +44,11 @@ MCU = atmega88
 
 
 # Processor frequency.
-#     This will define a symbol, F_CPU, in all source code files equal to the 
-#     processor frequency. You can then use this symbol in your source code to 
+#     This will define a symbol, F_CPU, in all source code files equal to the
+#     processor frequency. You can then use this symbol in your source code to
 #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
 #     automatically to create a 32-bit value in your source code.
-F_CPU = 16000000
+F_CPU = 8000000
 
 
 # Output format. (can be srec, ihex, binary)
@@ -69,10 +69,10 @@ SRC = $(TARGET).c uart.c cmd.c timer.c
 #     Even though the DOS/Win* filesystem matches both .s and .S the same,
 #     it will preserve the spelling of the filenames, and gcc itself does
 #     care about how the name is spelled on its command-line.
-ASRC = 
+ASRC =
 
 
-# Optimization level, can be [0, 1, 2, 3, s]. 
+# Optimization level, can be [0, 1, 2, 3, s].
 #     0 = turn off optimization. s = optimize for size.
 #     (Note: 3 is not always the best optimization level. See avr-libc FAQ.)
 OPT = s -mcall-prologues
@@ -89,7 +89,7 @@ DEBUG = dwarf-2
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRAINCDIRS = 
+EXTRAINCDIRS =
 
 
 # Compiler flag to set the C Standard level.
@@ -325,7 +325,7 @@ build: elf hex eep lss sym
 elf: $(TARGET).elf
 hex: $(TARGET).hex
 eep: $(TARGET).eep
-lss: $(TARGET).lss 
+lss: $(TARGET).lss
 sym: $(TARGET).sym
 
 
