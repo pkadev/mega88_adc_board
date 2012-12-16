@@ -59,7 +59,7 @@ TARGET = main
 
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = $(TARGET).c uart.c cmd.c timer.c
+SRC = $(TARGET).c uart.c cmd.c timer.c max1168.c
 
 
 # List Assembler source files here.
@@ -89,7 +89,7 @@ DEBUG = dwarf-2
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRAINCDIRS =
+EXTRAINCDIRS = include
 
 
 # Compiler flag to set the C Standard level.

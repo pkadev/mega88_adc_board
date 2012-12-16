@@ -5,46 +5,32 @@
 #include <avr/interrupt.h>
 #include "m128_hal.h"
 #include "uart.h"
-#include "cmd.h"
 #include <avr/wdt.h>
 #include <util/delay.h>
 #include "timer.h"
-#include "spi.c"
+#include "max1168.h"
 
-uint8_t cmp_pattern(uint8_t *p, uint8_t pattern, size_t size)
-{
-    uint8_t *p_end = (p + size);
-    while(p < p_end) {
-        if(*p != pattern) {
-            printk("Pattern match failed at 0x%x [%x]\n", *p);
-            return -1;
-        }
-        p++;
-    }
-    return 0;
-}
 
 int main(void)
 {
-    max1168_init();
-    //XMCRA |= (1<<SRE);
-    //XMCRA |= (1<<SRW01) | (1<<SRW11);
+    uint16_t i = 20;
 
-    //wdt_enable(WDTO_8S);
-    STATUS_REGISTER |= (1<<STATUS_REGISTER_IT);
+    _delay_ms(2500);
+    DDRD |= (1<<PD2);
+
     uart_init();
-    cmd_init();
+    STATUS_REGISTER |= (1<<STATUS_REGISTER_IT);
 
-    while(1)
+
+    while(i--)
     {
-    //    _delay_ms(250);
-        // pending_cmd();
-        //wdt_reset();
-        uint8_t val = max1168_read_reg(SPI_DUMMY_BYTE);
-        printk("reg: 0x%x\n", val);
+        //uint16_t val = max1168_mean(0, 3);
+        //printk("reg: %u\n", val);
+        uint16_t val = max1168_read_adc(SPI_DUMMY_BYTE, CLK_EXTERNAL, MODE_8BIT);
+        printk("reg: %u\n", val);
     }
-//fatal:
-    printk("Fatal error!\n");
+
+    printk("Conversion Completed!\n");
     while(1);
     return 0;
 }
